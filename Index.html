@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Withdrawal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f3f3f3;
+            margin: 0;
+        }
+        .withdrawal-form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        .withdrawal-form h2 {
+            margin-top: 0;
+            color: #333;
+            text-align: center;
+        }
+        .withdrawal-form label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        .withdrawal-form input[type="text"], 
+        .withdrawal-form input[type="number"], 
+        .withdrawal-form select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid gray;
+            border-radius: 4px;
+            outline: none;
+        }
+        .withdrawal-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .withdrawal-form button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="withdrawal-form">
+    <h2>E-fund Transfer</h2>
+
+    <!-- Display Account Name -->
+    <label for="accountName">Account Name</label>
+    <input type="text" id="accountName" value="Andrew Wandenai" disabled>
+
+    <!-- Display Account Number -->
+    <label for="accountNumber">Account Number</label>
+    <input type="text" id="accountNumber" value="1002077947" disabled>
+
+    <!-- Display Profit Balance -->
+    <label for="profitBalance">Profit Balance</label>
+    <input type="text" id="profitBalance" value="$22,725.00" disabled>
+
+    <!-- Withdrawal Amount Input -->
+    <label for="withdrawalAmount">Withdrawal Amount</label>
+    <input type="number" id="withdrawalAmount" placeholder="Enter amount to withdraw">
+
+    <!-- Bank Selection Dropdown -->
+    <label for="bankName">Select Bank</label>
+    <select id="bankName">
+        <option value="">Select your bank</option>
+        <optgroup label="United States">
+            <option value="Bank of America">Bank of America</option>
+            <option value="JPMorgan Chase">JPMorgan Chase</option>
+            <option value="Wells Fargo">Wells Fargo</option>
+            <option value="Citibank">Citibank</option>
+            <option value="Goldman Sachs">Goldman Sachs</option>
+        </optgroup>
+        <optgroup label="Canada">
+            <option value="Royal Bank of Canada">Royal Bank of Canada</option>
+            <option value="TD Canada Trust">TD Canada Trust</option>
+            <option value="Scotiabank">Scotiabank</option>
+            <option value="Bank of Montreal">Bank of Montreal</option>
+            <option value="CIBC">CIBC</option>
+        </optgroup>
+        <optgroup label="United Kingdom">
+            <option value="HSBC">HSBC</option>
+            <option value="Barclays">Barclays</option>
+            <option value="Lloyds Bank">Lloyds Bank</option>
+            <option value="NatWest">NatWest</option>
+            <option value="Santander UK">Santander UK</option>
+        </optgroup>
+        <optgroup label="Australia">
+            <option value="Commonwealth Bank">Commonwealth Bank</option>
+            <option value="Westpac">Westpac</option>
+            <option value="ANZ">ANZ</option>
+            <option value="National Australia Bank">National Australia Bank</option>
+            <option value="Macquarie Bank">Macquarie Bank</option>
+        </optgroup>
+        <optgroup label="Germany">
+            <option value="Deutsche Bank">Deutsche Bank</option>
+            <option value="Commerzbank">Commerzbank</option>
+            <option value="KfW Bank">KfW Bank</option>
+            <option value="DZ Bank">DZ Bank</option>
+            <option value="HypoVereinsbank">HypoVereinsbank</option>
+        </optgroup>
+        <optgroup label="Papua New Guinea">
+            <option value="Bank South Pacific">Bank South Pacific</option>
+            <option value="Australia and New Zealand Banking Group PNG">Australia and New Zealand Banking Group PNG</option>
+            <option value="Westpac PNG">Westpac PNG</option>
+            <option value="Kina Bank">Kina Bank</option>
+            <option value="Nasfund Contributors Savings and Loan Society">Nasfund Contributors Savings and Loan Society</option>
+        </optgroup>
+    </select>
+
+    <!-- Submit Button -->
+    <button onclick="submitWithdrawal()">Withdraw</button>
+
+</div>
+<script>
+    function submitWithdrawal() {
+        // Fetch input values
+        const accountName = document.getElementById("accountName").value;
+        const accountNumber = document.getElementById("accountNumber").value;
+        const profitBalance = parseFloat(document.getElementById("profitBalance").value.replace(/[^0-9.-]+/g,""));
+        const withdrawalAmount = parseFloat(document.getElementById("withdrawalAmount").value);
+        const bankName = document.getElementById("bankName").value;
+        // Basic validation to check all fields are filled
+        if (!withdrawalAmount || !bankName) {
+            alert("Please enter the withdrawal amount and select a bank.");
+            return;
+        }
+        // Check if withdrawal amount exceeds profit balance
+        if (withdrawalAmount > profitBalance) {
+            alert("Withdrawal amount exceeds your profit balance.");
+            return;
+        }
+        // Confirm withdrawal details
+        if (confirm(`Withdrawal Request:\nAccount Name: ${accountName}\nAccount Number: ${accountNumber}\nAmount: $${withdrawalAmount}\nBank: ${bankName}`)) {
+            checkWithdrawalStatus();
+        }
+    } 
+    function checkWithdrawalStatus() {
+        // Show the first alert
+        setTimeout(() => {
+          alert("checking withdrawal status...");
+        }, 1000)
+        // Set a timeout to close the alert after 2 seconds and show the next message
+        setTimeout(() => {
+            // Close the first alert by displaying the next message
+            alert("Withdrawal pending...");
+        }, 6000); // 3000 milliseconds = 3 seconds
+    }
+</script>
+</body>
+</html>
